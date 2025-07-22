@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerceapp/firebase/FireBaseFireStore.dart';
 import 'package:ecommerceapp/firebase/firebaseauth.dart';
+import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 part 'sign_inwith_google_state.dart';
 
 class SignInwithGoogleCubit extends Cubit<SignInwithGoogleState> {
-  final FireBaseAuth fireBaseAuth = FireBaseAuth();
+  final FireBaseAuth fireBaseAuth = getIt<FireBaseAuth>();
   SignInwithGoogleCubit() : super(SignInwithGoogleInitial());
 
   Future signInWithGoogle() async {

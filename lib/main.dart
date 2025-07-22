@@ -7,6 +7,7 @@ import 'package:ecommerceapp/bloc/signup/sign_up_cubit.dart';
 import 'package:ecommerceapp/bloc/thememode/theme_mode_cubit.dart';
 import 'package:ecommerceapp/splash/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(390, 844),
+      designSize: kIsWeb ? Size(1200, 800) : Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

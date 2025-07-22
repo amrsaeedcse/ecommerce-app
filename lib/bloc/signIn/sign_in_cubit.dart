@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
@@ -8,7 +9,7 @@ part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInInitial());
-  final FireBaseAuth firebaseAuth = FireBaseAuth();
+  final FireBaseAuth firebaseAuth = getIt<FireBaseAuth>();
   Future<void> login(String email, String password) async {
     emit(SignInLoading());
 

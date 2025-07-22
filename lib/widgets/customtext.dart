@@ -23,7 +23,7 @@ class CustomText extends StatelessWidget {
       duration: Duration(milliseconds: 1000),
       style: TextStyle(
         fontWeight: weight,
-        fontSize: size.sp,
+        fontSize: size,
         color: color ?? Theme.of(context).colorScheme.primary,
       ),
       child: Text(text),

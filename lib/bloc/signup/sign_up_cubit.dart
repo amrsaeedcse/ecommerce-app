@@ -2,11 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:ecommerceapp/firebase/firebaseauth.dart';
 import 'package:meta/meta.dart';
 
+import '../../getit/service_locator.dart';
+
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
-  FireBaseAuth fireBaseAuth = FireBaseAuth();
+  final FireBaseAuth firebaseAuth = getIt<FireBaseAuth>();
 
   Future signUp({
     required String email,
@@ -16,7 +18,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String sex,
   }) async {
     emit(SignUpLoading());
-    final user = await fireBaseAuth.signUp(
+    final user = await firebaseAuth.signUp(
       email: email,
       pass: pass,
       name: name,
