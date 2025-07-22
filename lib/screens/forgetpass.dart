@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // <-- مهم
 
 import '../widgets/CustomElevatedButton.dart';
 import '../widgets/customappbar.dart';
@@ -28,21 +29,21 @@ class ForgetPass extends StatelessWidget {
         appBar: CustomPppBar(pr: Back()),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w), // ScreenUtil هنا
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(50),
+              Gap(50.h), // هنا استخدمنا .h بدل الرقم
               CustomText(
                 text: "Forgot Password",
                 weight: FontWeight.w700,
-                size: 32,
+                size: 32.sp, // حجم الخط
               ),
-              Gap(30),
+              Gap(30.h),
               Form(
                 key: _formKey,
-                child: Container(
-                  height: 70,
+                child: SizedBox(
+                  height: 70.h,
                   child: CustomTextField(
                     hint: "Enter Email",
                     cont: emailCont,
@@ -50,7 +51,7 @@ class ForgetPass extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(20),
+              Gap(20.h),
               BlocConsumer<ForgetPassCubit, ForgetPassState>(
                 listener: (context, state) {
                   if (state is ForgetPassSuccess) {
@@ -75,7 +76,7 @@ class ForgetPass extends StatelessWidget {
                         : CustomText(
                             text: "Continue",
                             weight: FontWeight.w500,
-                            size: 16,
+                            size: 16.sp,
                             color: theme.colorScheme.surface,
                           ),
                     fun: () {

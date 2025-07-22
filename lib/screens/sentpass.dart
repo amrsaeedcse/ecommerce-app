@@ -4,6 +4,7 @@ import 'package:ecommerceapp/widgets/gap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // أضف دي
 
 class SentPass extends StatelessWidget {
   const SentPass({super.key});
@@ -15,7 +16,7 @@ class SentPass extends StatelessWidget {
       backgroundColor: theme.colorScheme.surface,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w), // ← هنا
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -23,14 +24,13 @@ class SentPass extends StatelessWidget {
               CustomText(
                 text: "We Sent you an Email to reset your password.",
                 weight: FontWeight.w500,
-                size: 26,
+                size: 26.sp, // ← هنا
               ),
 
-              Gap(20),
+              Gap(20.h), // ← هنا
 
-              // width: 200,
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 90.0),
+                padding: EdgeInsets.symmetric(horizontal: 90.w), // ← هنا
                 child: CustomElevatedButton(
                   fun: () {
                     Navigator.pop(context);
@@ -41,7 +41,7 @@ class SentPass extends StatelessWidget {
                   customText: CustomText(
                     text: "Return to Login",
                     weight: FontWeight.w500,
-                    size: 17,
+                    size: 17.sp, // ← هنا
                     color: theme.colorScheme.surface,
                   ),
                 ),

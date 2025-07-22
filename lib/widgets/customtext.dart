@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomText extends StatelessWidget {
   const CustomText({
@@ -22,7 +23,7 @@ class CustomText extends StatelessWidget {
       duration: Duration(milliseconds: 1000),
       style: TextStyle(
         fontWeight: weight,
-        fontSize: size,
+        fontSize: size.sp,
         color: color ?? Theme.of(context).colorScheme.primary,
       ),
       child: Text(text),

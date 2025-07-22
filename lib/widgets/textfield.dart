@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -19,7 +20,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       style: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: 16,
+        fontSize: 16.sp,
         color: Theme.of(context).colorScheme.primary,
       ),
       expands: true,
@@ -27,34 +28,34 @@ class CustomTextField extends StatelessWidget {
       controller: cont,
       decoration: InputDecoration(
         hintText: hint,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         hintStyle: TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: 16,
+          fontSize: 16.sp,
           color: theme.colorScheme.onPrimary,
         ),
         filled: true,
         errorStyle: TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: 12,
+          fontSize: 12.sp,
           color: theme.colorScheme.primary,
         ),
         fillColor: theme.colorScheme.onPrimary,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5.r),
           borderSide: BorderSide.none,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5.r),
           borderSide: BorderSide.none,
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5.r),
           borderSide: BorderSide.none,
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(5.r),
           borderSide: BorderSide.none,
         ),
       ),

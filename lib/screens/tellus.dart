@@ -3,13 +3,13 @@ import 'package:ecommerceapp/bloc/age/age_control_cubit.dart';
 import 'package:ecommerceapp/bloc/choose/choose_cubit.dart';
 import 'package:ecommerceapp/bloc/signup/sign_up_cubit.dart';
 import 'package:ecommerceapp/screens/signup.dart';
-import 'package:ecommerceapp/widgets/homepage.dart';
+import 'package:ecommerceapp/screens/homepage.dart';
 import 'package:ecommerceapp/widgets/loading.dart';
 import 'package:ecommerceapp/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/CustomElevatedButton.dart';
 import '../widgets/back.dart';
@@ -26,10 +26,10 @@ class TellUs extends StatefulWidget {
     this.email,
     required this.from,
   });
+
   final String? name;
   final String? pass;
   final String? email;
-
   final ComeFrom from;
 
   @override
@@ -37,7 +37,6 @@ class TellUs extends StatefulWidget {
 }
 
 class _TellUsState extends State<TellUs> {
-  String? selectedRange;
   void showSheet() {
     showModalBottomSheet(
       context: context,
@@ -50,8 +49,8 @@ class _TellUsState extends State<TellUs> {
           '55-64',
           '65+',
         ];
-        return Container(
-          height: 300,
+        return SizedBox(
+          height: 300.h,
           child: ListView.builder(
             itemCount: ageGroups.length,
             itemBuilder: (context, index) {
@@ -61,11 +60,11 @@ class _TellUsState extends State<TellUs> {
                   Navigator.pop(context);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: EdgeInsets.all(12.0.h),
                   child: CustomText(
                     text: ageGroups[index],
                     weight: FontWeight.w500,
-                    size: 20,
+                    size: 20.sp,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
@@ -80,158 +79,34 @@ class _TellUsState extends State<TellUs> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
-      bottomNavigationBar: widget.from == ComeFrom.normal
-          ? BlocConsumer<SignUpCubit, SignUpState>(
-              listener: (context, state) {
-                if (state is SignUpSuccess) {
-                  Navigator.of(context).pop();
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  SnackBarWarning.showSnack("email created", context);
-                } else if (state is SignUpEmailError) {
-                  Navigator.pop(context);
-                  SnackBarWarning.showSnack(
-                    "this Email is already here",
-                    context,
-                  );
-                } else if (state is SignUpLoading) {
-                  Loading.showAlertLoading(context);
-                } else if (state is SignUpFailure) {
-                  Navigator.pop(context);
-                  SnackBarWarning.showSnack("Error happened", context);
-                }
-              },
-              builder: (context, state) {
-                return BlocBuilder<AgeControlCubit, AgeControlState>(
-                  builder: (context, state2) {
-                    return Container(
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: CustomElevatedButton(
-                          color: theme.primaryColor,
-                          customText: CustomText(
-                            text: "Finish",
-                            weight: FontWeight.w500,
-                            size: 28,
-                            color: theme.colorScheme.surface,
-                          ),
-                          fun: state2.ageSelected == null
-                              ? null
-                              : () {
-                                  String sex;
-                                  if (context.read<ChooseCubit>().state
-                                      is ChooseMen) {
-                                    sex = "men";
-                                  } else {
-                                    sex = "women";
-                                  }
-                                  context.read<SignUpCubit>().signUp(
-                                    email: widget.email!,
-                                    pass: widget.pass!,
-                                    name: widget.name!,
-                                    age: state2.ageSelected!,
-                                    sex: sex,
-                                  );
-                                },
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            )
-          : BlocBuilder<AgeControlCubit, AgeControlState>(
-              builder: (context, state2) {
-                return BlocConsumer<StoreGoogleCubit, StoreGoogleState>(
-                  listener: (context, state) {
-                    if (state is StoreGoogleFailure) {
-                      Navigator.pop(context);
-                      SnackBarWarning.showSnack("error", context);
-                    } else if (state is StoreGoogleSuccess) {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    } else if (state is StoreGoogleLoading) {
-                      Loading.showAlertLoading(context);
-                    }
-                  },
-                  builder: (context, state) {
-                    return Container(
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: CustomElevatedButton(
-                          color: theme.primaryColor,
-                          customText: CustomText(
-                            text: "Finish",
-                            weight: FontWeight.w500,
-                            size: 28,
-                            color: theme.colorScheme.surface,
-                          ),
-                          fun: state2.ageSelected == null
-                              ? null
-                              : () {
-                                  //add google user ti db
-                                  String sex;
-                                  if (context.read<ChooseCubit>().state
-                                      is ChooseMen) {
-                                    sex = "men";
-                                  } else {
-                                    sex = "women";
-                                  }
-                                  String? age = context
-                                      .read<AgeControlCubit>()
-                                      .state
-                                      .ageSelected;
-                                  context.read<StoreGoogleCubit>().store(
-                                    email: FirebaseAuth
-                                        .instance
-                                        .currentUser!
-                                        .email!,
-                                    name: FirebaseAuth
-                                        .instance
-                                        .currentUser!
-                                        .displayName!,
-                                    age: age!,
-                                    sex: sex,
-                                    userId:
-                                        FirebaseAuth.instance.currentUser!.uid,
-                                  );
-                                },
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
       appBar: CustomPppBar(pr: Back()),
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: theme.colorScheme.secondary,
+      bottomNavigationBar: widget.from == ComeFrom.normal
+          ? _buildNormalBottom(theme)
+          : _buildGoogleBottom(theme),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Gap(50),
+            Gap(50.h),
             CustomText(
               text: "Tell us About yourself",
               weight: FontWeight.w700,
-              size: 28,
+              size: 28.sp,
             ),
-            Gap(30),
+            Gap(30.h),
             CustomText(
               text: "Who do you shop for ?",
               weight: FontWeight.w500,
-              size: 16,
+              size: 16.sp,
             ),
-            Gap(20),
+            Gap(20.h),
             BlocBuilder<ChooseCubit, ChooseState>(
               builder: (context, state) {
                 return Row(
-                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: CustomElevatedButton(
@@ -241,7 +116,7 @@ class _TellUsState extends State<TellUs> {
                         customText: CustomText(
                           text: "men",
                           weight: FontWeight.w500,
-                          size: 16,
+                          size: 16.sp,
                           color: (state is ChooseWomen)
                               ? theme.colorScheme.surface
                               : null,
@@ -251,7 +126,7 @@ class _TellUsState extends State<TellUs> {
                         },
                       ),
                     ),
-                    SizedBox(width: 20),
+                    SizedBox(width: 20.w),
                     Expanded(
                       child: CustomElevatedButton(
                         color: (state is ChooseMen)
@@ -260,7 +135,7 @@ class _TellUsState extends State<TellUs> {
                         customText: CustomText(
                           text: "women",
                           weight: FontWeight.w500,
-                          size: 16,
+                          size: 16.sp,
                           color: (state is ChooseMen)
                               ? theme.colorScheme.surface
                               : null,
@@ -274,34 +149,29 @@ class _TellUsState extends State<TellUs> {
                 );
               },
             ),
-            Gap(50),
+            Gap(50.h),
             CustomText(
               text: "How Old are you ?",
               weight: FontWeight.w500,
-              size: 18,
+              size: 18.sp,
             ),
-            Gap(30),
+            Gap(30.h),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.onPrimary,
               ),
               onPressed: showSheet,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 20,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     BlocBuilder<AgeControlCubit, AgeControlState>(
                       builder: (context, state) {
                         return CustomText(
-                          text: state.ageSelected == null
-                              ? "Age Range"
-                              : state.ageSelected!,
+                          text: state.ageSelected ?? "Age Range",
                           weight: FontWeight.w500,
-                          size: 15,
+                          size: 15.sp,
                         );
                       },
                     ),
@@ -316,6 +186,118 @@ class _TellUsState extends State<TellUs> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildNormalBottom(ThemeData theme) {
+    return BlocConsumer<SignUpCubit, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+          SnackBarWarning.showSnack("email created", context);
+        } else if (state is SignUpEmailError) {
+          Navigator.pop(context);
+          SnackBarWarning.showSnack("this Email is already here", context);
+        } else if (state is SignUpLoading) {
+          Loading.showAlertLoading(context);
+        } else if (state is SignUpFailure) {
+          Navigator.pop(context);
+          SnackBarWarning.showSnack("Error happened", context);
+        }
+      },
+      builder: (context, _) {
+        return BlocBuilder<AgeControlCubit, AgeControlState>(
+          builder: (context, state2) {
+            return SizedBox(
+              height: 100.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: CustomElevatedButton(
+                  color: theme.primaryColor,
+                  customText: CustomText(
+                    text: "Finish",
+                    weight: FontWeight.w500,
+                    size: 28.sp,
+                    color: theme.colorScheme.surface,
+                  ),
+                  fun: state2.ageSelected == null
+                      ? null
+                      : () {
+                          final sex =
+                              context.read<ChooseCubit>().state is ChooseMen
+                              ? "men"
+                              : "women";
+                          context.read<SignUpCubit>().signUp(
+                            email: widget.email!,
+                            pass: widget.pass!,
+                            name: widget.name!,
+                            age: state2.ageSelected!,
+                            sex: sex,
+                          );
+                        },
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildGoogleBottom(ThemeData theme) {
+    return BlocBuilder<AgeControlCubit, AgeControlState>(
+      builder: (context, state2) {
+        return BlocConsumer<StoreGoogleCubit, StoreGoogleState>(
+          listener: (context, state) {
+            if (state is StoreGoogleFailure) {
+              Navigator.pop(context);
+              SnackBarWarning.showSnack("error", context);
+            } else if (state is StoreGoogleSuccess) {
+              Navigator.pop(context);
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => HomePage()));
+            } else if (state is StoreGoogleLoading) {
+              Loading.showAlertLoading(context);
+            }
+          },
+          builder: (context, _) {
+            return SizedBox(
+              height: 100.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: CustomElevatedButton(
+                  color: theme.primaryColor,
+                  customText: CustomText(
+                    text: "Finish",
+                    weight: FontWeight.w500,
+                    size: 28.sp,
+                    color: theme.colorScheme.surface,
+                  ),
+                  fun: state2.ageSelected == null
+                      ? null
+                      : () {
+                          final sex =
+                              context.read<ChooseCubit>().state is ChooseMen
+                              ? "men"
+                              : "women";
+                          final user = FirebaseAuth.instance.currentUser!;
+                          context.read<StoreGoogleCubit>().store(
+                            email: user.email!,
+                            name: user.displayName!,
+                            age: state2.ageSelected!,
+                            sex: sex,
+                            userId: user.uid,
+                          );
+                        },
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

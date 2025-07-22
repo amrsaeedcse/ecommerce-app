@@ -1,12 +1,13 @@
 import 'package:ecommerceapp/bloc/signup/sign_up_cubit.dart';
 import 'package:ecommerceapp/widgets/back.dart';
-import 'package:ecommerceapp/widgets/homepage.dart';
+import 'package:ecommerceapp/screens/homepage.dart';
 import 'package:ecommerceapp/widgets/loading.dart';
 import 'package:ecommerceapp/widgets/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // أضفناها هنا
 
 import '../bloc/signIn/sign_in_cubit.dart';
 import '../widgets/CustomElevatedButton.dart';
@@ -32,17 +33,17 @@ class SignIn2 extends StatelessWidget {
         appBar: CustomPppBar(pr: Back()),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w), // 10 -> .w
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(50),
+              Gap(50.h), // 50 -> .h
               CustomText(text: "Sign in", weight: FontWeight.w700, size: 32),
-              Gap(30),
+              Gap(30.h), // 30 -> .h
               Form(
                 key: _formKey,
-                child: Container(
-                  height: 70,
+                child: SizedBox(
+                  height: 70.h, // 70 -> .h
                   child: CustomTextField(
                     hint: "Password",
                     cont: passCont,
@@ -50,7 +51,7 @@ class SignIn2 extends StatelessWidget {
                   ),
                 ),
               ),
-              Gap(20),
+              Gap(20.h), // 20 -> .h
               BlocConsumer<SignInCubit, SignInState>(
                 listener: (context, state) {
                   if (state is SignInLoading) {
@@ -86,7 +87,7 @@ class SignIn2 extends StatelessWidget {
                   );
                 },
               ),
-              Gap(20),
+              Gap(20.h), // 20 -> .h
               Row(
                 children: [
                   CustomText(

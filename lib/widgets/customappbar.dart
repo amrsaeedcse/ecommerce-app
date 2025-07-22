@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomPppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomPppBar({super.key, this.pr, this.su, this.cen});
@@ -28,5 +29,5 @@ class CustomPppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(40);
+  Size get preferredSize => Size.fromHeight(40.h);
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   CustomElevatedButton({
@@ -28,12 +29,12 @@ class CustomElevatedButton extends StatelessWidget {
                     : Theme.of(context).colorScheme.onPrimary,
                 padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(40),
+                  borderRadius: BorderRadiusGeometry.circular(40.r),
                 ),
               ),
               onPressed: fun,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: EdgeInsets.symmetric(vertical: 20.0.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [customText],
@@ -45,7 +46,7 @@ class CustomElevatedButton extends StatelessWidget {
         icon != null
             ? Positioned.fill(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
+                  padding: EdgeInsets.only(left: 20.0.w),
                   child: Align(alignment: Alignment.centerLeft, child: icon),
                 ),
               )

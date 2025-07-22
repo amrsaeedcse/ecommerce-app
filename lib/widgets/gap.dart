@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Gap extends StatelessWidget {
   const Gap(this.h, {super.key});
@@ -7,6 +8,6 @@ class Gap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: h);
+    return SizedBox(height: h.h);
   }
 }

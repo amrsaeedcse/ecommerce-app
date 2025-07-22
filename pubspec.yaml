@@ -42,6 +42,8 @@ dependencies:
   google_sign_in: ^7.1.0
   flutter_svg: ^2.2.0
   lottie: ^3.3.1
+  get_it: ^8.0.3
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

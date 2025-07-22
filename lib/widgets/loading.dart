@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Loading {
   static void showAlertLoading(BuildContext context) {
@@ -9,11 +10,11 @@ class Loading {
         return AlertDialog(
           titlePadding: EdgeInsets.zero,
           title: Container(
-            width: 200,
-            height: 200,
+            width: 200.w,
+            height: 200.h,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadiusGeometry.circular(20),
+              borderRadius: BorderRadiusGeometry.circular(20.r),
             ),
             child: Center(
               child: CupertinoActivityIndicator(

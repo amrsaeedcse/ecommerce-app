@@ -6,13 +6,14 @@ import 'package:ecommerceapp/widgets/CustomElevatedButton.dart';
 import 'package:ecommerceapp/widgets/customappbar.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/gap.dart';
-import 'package:ecommerceapp/widgets/homepage.dart';
+import 'package:ecommerceapp/screens/homepage.dart';
 import 'package:ecommerceapp/widgets/loading.dart';
 import 'package:ecommerceapp/widgets/snackbar.dart';
 import 'package:ecommerceapp/widgets/textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -48,17 +49,21 @@ class _SignInState extends State<SignIn> {
         appBar: CustomPppBar(),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w), // ✅ .w هنا
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(50),
-              CustomText(text: "Sign in", weight: FontWeight.w700, size: 32),
-              Gap(30),
+              Gap(50.h), // ✅ .h هنا
+              CustomText(
+                text: "Sign in",
+                weight: FontWeight.w700,
+                size: 32.sp, // ✅ .sp للنص
+              ),
+              Gap(30.h),
               Form(
                 key: _formKey,
-                child: Container(
-                  height: 70,
+                child: SizedBox(
+                  height: 70.h, // ✅ .h
                   child: CustomTextField(
                     hint: "Email Address",
                     cont: emailCont,
@@ -66,24 +71,24 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-              Gap(20),
+              Gap(20.h),
               CustomElevatedButton(
                 color: Theme.of(context).primaryColor,
                 customText: CustomText(
                   text: "Continue",
                   weight: FontWeight.w500,
-                  size: 16,
+                  size: 16.sp, // ✅
                   color: theme.colorScheme.surface,
                 ),
                 fun: sendEmail,
               ),
-              Gap(20),
+              Gap(20.h),
               Row(
                 children: [
                   CustomText(
                     text: "Don't have an Account ?",
                     weight: FontWeight.w500,
-                    size: 12,
+                    size: 12.sp, // ✅
                   ),
                   GestureDetector(
                     onTap: () {
@@ -94,23 +99,23 @@ class _SignInState extends State<SignIn> {
                     child: CustomText(
                       text: "Create One",
                       weight: FontWeight.w700,
-                      size: 12,
+                      size: 12.sp, // ✅
                     ),
                   ),
                 ],
               ),
-              Gap(40),
+              Gap(40.h),
               CustomElevatedButton(
                 icon: SvgPicture.asset("assets/images/icons/Apple.svg"),
                 color: Theme.of(context).colorScheme.onPrimary,
                 customText: CustomText(
                   text: "Continue With Apple",
                   weight: FontWeight.w500,
-                  size: 16,
+                  size: 16.sp, // ✅
                 ),
                 fun: () {},
               ),
-              Gap(10),
+              Gap(10.h),
               BlocConsumer<SignInwithGoogleCubit, SignInwithGoogleState>(
                 listener: (context, state) {
                   if (state is SignInwithGoogleLoading) {
@@ -135,12 +140,11 @@ class _SignInState extends State<SignIn> {
                 builder: (context, state) {
                   return CustomElevatedButton(
                     icon: Image.asset("assets/images/icons/Google - png 0.png"),
-
                     color: Theme.of(context).colorScheme.onPrimary,
                     customText: CustomText(
                       text: "Continue With Google",
                       weight: FontWeight.w500,
-                      size: 16,
+                      size: 16.sp, // ✅
                     ),
                     fun: () {
                       context.read<SignInwithGoogleCubit>().signInWithGoogle();
@@ -148,15 +152,14 @@ class _SignInState extends State<SignIn> {
                   );
                 },
               ),
-              Gap(10),
+              Gap(10.h),
               CustomElevatedButton(
                 icon: Image.asset("assets/images/icons/Facebook - png 0.png"),
-
                 color: Theme.of(context).colorScheme.onPrimary,
                 customText: CustomText(
                   text: "Continue With Facebook",
                   weight: FontWeight.w500,
-                  size: 16,
+                  size: 16.sp, // ✅
                 ),
                 fun: () {},
               ),

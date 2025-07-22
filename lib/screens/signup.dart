@@ -5,6 +5,7 @@ import 'package:ecommerceapp/widgets/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ضروري
 
 import '../widgets/CustomElevatedButton.dart';
 import '../widgets/customtext.dart';
@@ -36,53 +37,50 @@ class _SignUpState extends State<SignUp> {
         appBar: CustomPppBar(pr: Back()),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(50),
+              Gap(50.h),
               CustomText(
                 text: "Create Account",
                 weight: FontWeight.w700,
-                size: 32,
+                size: 32.sp,
               ),
-              Gap(30),
+              Gap(30.h),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    Container(
-                      height: 70,
+                    SizedBox(
+                      height: 70.h,
                       child: CustomTextField(
                         hint: "Firstname",
                         cont: fNameCont,
                         type: InputType.name,
                       ),
                     ),
-                    Gap(15),
-                    Container(
-                      height: 70,
+                    Gap(15.h),
+                    SizedBox(
+                      height: 70.h,
                       child: CustomTextField(
                         hint: "Lastname",
                         cont: lNameCont,
                         type: InputType.name,
                       ),
                     ),
-
-                    Gap(15),
-
-                    Container(
-                      height: 70,
+                    Gap(15.h),
+                    SizedBox(
+                      height: 70.h,
                       child: CustomTextField(
                         hint: "Email Address",
                         cont: emailCont,
                         type: InputType.email,
                       ),
                     ),
-                    Gap(15),
-
-                    Container(
-                      height: 70,
+                    Gap(15.h),
+                    SizedBox(
+                      height: 70.h,
                       child: CustomTextField(
                         hint: "Password",
                         cont: passCont,
@@ -92,13 +90,13 @@ class _SignUpState extends State<SignUp> {
                   ],
                 ),
               ),
-              Gap(30),
+              Gap(30.h),
               CustomElevatedButton(
                 color: Theme.of(context).primaryColor,
                 customText: CustomText(
                   text: "Continue",
                   weight: FontWeight.w500,
-                  size: 16,
+                  size: 16.sp,
                   color: theme.colorScheme.surface,
                 ),
                 fun: () {
@@ -116,20 +114,20 @@ class _SignUpState extends State<SignUp> {
                   }
                 },
               ),
-              Gap(50),
+              Gap(50.h),
               Row(
                 children: [
                   CustomText(
                     text: "Forgot Password ? ",
                     weight: FontWeight.w500,
-                    size: 12,
+                    size: 12.sp,
                   ),
                   GestureDetector(
                     onTap: () {},
                     child: CustomText(
                       text: "Reset",
                       weight: FontWeight.w700,
-                      size: 12,
+                      size: 12.sp,
                     ),
                   ),
                 ],
