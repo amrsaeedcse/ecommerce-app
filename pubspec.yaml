@@ -44,6 +44,9 @@ dependencies:
   lottie: ^3.3.1
   get_it: ^8.0.3
   flutter_screenutil: ^5.9.3
+  shimmer: ^3.0.0
+  color_parser: ^0.0.3
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +84,8 @@ flutter:
     #- assets/images/covers/
     - assets/images/icons/
     - assets/images/logos/
+    - assets/images/covers/
+    - assets/images/catogeryimage/
     - assets/fonts/
     - assets/lottie/
   #   - images/a_dot_ham.jpeg

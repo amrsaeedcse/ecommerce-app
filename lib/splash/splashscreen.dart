@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../screens/signin.dart';
+import '../screens/auth/signin.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

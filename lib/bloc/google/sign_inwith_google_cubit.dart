@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerceapp/firebase/FireBaseFireStore.dart';
-import 'package:ecommerceapp/firebase/firebaseauth.dart';
+import 'package:ecommerceapp/firebase/firestore/FireBaseFireStore.dart';
+import 'package:ecommerceapp/firebase/fireauth/firebaseauth.dart';
 import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';

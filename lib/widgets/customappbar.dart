@@ -14,7 +14,6 @@ class CustomPppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leadingWidth: 0,
       leading: null,
-
       backgroundColor: Colors.transparent,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

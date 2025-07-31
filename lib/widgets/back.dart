@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Back extends StatelessWidget {
   const Back({super.key});
@@ -15,11 +16,14 @@ class Back extends StatelessWidget {
         shape: BoxShape.circle,
         color: theme.colorScheme.onPrimary,
       ),
-      child: GestureDetector(
-        onTap: () => Navigator.pop(context),
-        child: Icon(
-          Icons.arrow_back_ios_rounded,
-          color: Theme.of(context).colorScheme.primary,
+      child: Material(
+        child: InkWell(
+          onTap: () => Navigator.pop(context),
+          customBorder: CircleBorder(),
+          child: Padding(
+            padding: EdgeInsets.all(12.0.r),
+            child: SvgPicture.asset("assets/images/icons/arrowleft2.svg"),
+          ),
         ),
       ),
     );

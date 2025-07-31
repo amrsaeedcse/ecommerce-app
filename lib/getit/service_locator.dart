@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
-import '../firebase/FireBaseFireStore.dart';
-import '../firebase/firebaseauth.dart';
+import '../firebase/firestore/FireBaseFireStore.dart';
+import '../firebase/fireauth/firebaseauth.dart';
 
 final getIt = GetIt.instance;
 

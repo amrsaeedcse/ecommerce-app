@@ -7,18 +7,13 @@ class SnackBarWarning {
   static showSnack(String message, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onPrimary,
-            borderRadius: BorderRadiusGeometry.circular(20.r),
-          ),
-          child: Center(
-            child: CustomText(
-              text: message,
-              weight: FontWeight.w500,
-              size: 15.sp,
-              color: Theme.of(context).colorScheme.surface,
-            ),
+        backgroundColor: Theme.of(context).primaryColor,
+        content: Center(
+          child: CustomText(
+            text: message,
+            weight: FontWeight.w700,
+            size: 15,
+            color: Theme.of(context).colorScheme.surface,
           ),
         ),
       ),

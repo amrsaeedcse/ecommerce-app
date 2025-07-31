@@ -3,7 +3,7 @@ import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../../firebase/firebaseauth.dart';
+import '../../firebase/fireauth/firebaseauth.dart';
 
 part 'sign_in_state.dart';
 

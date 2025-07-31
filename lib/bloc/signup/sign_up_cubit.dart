@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerceapp/firebase/firebaseauth.dart';
+import 'package:ecommerceapp/firebase/fireauth/firebaseauth.dart';
 import 'package:meta/meta.dart';
 
 import '../../getit/service_locator.dart';

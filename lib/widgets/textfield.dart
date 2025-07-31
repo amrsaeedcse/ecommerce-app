@@ -68,7 +68,7 @@ class CustomTextField extends StatelessWidget {
             if (!RegExp(
               r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
             ).hasMatch(value.trim())) {
-              return 'Please enter a valid email address !';
+              return 'Please enter a valid email addaddress !';
             }
             return null; // va
           case InputType.password:

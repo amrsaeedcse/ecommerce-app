@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerceapp/firebase/FireBaseFireStore.dart';
+import 'package:ecommerceapp/firebase/firestore/FireBaseFireStore.dart';
 import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:meta/meta.dart';
 
