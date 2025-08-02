@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/bloc/addDataWithGoogle/store_google_cubit.dart';
 import 'package:ecommerceapp/bloc/addaddress/add_address_cubit.dart';
 import 'package:ecommerceapp/bloc/addcartcontrol/add_cart_control_cubit.dart';
+import 'package:ecommerceapp/bloc/addcheckout/add_check_out_cubit.dart';
 import 'package:ecommerceapp/bloc/addrating/add_rating_cubit.dart';
 import 'package:ecommerceapp/bloc/age/age_control_cubit.dart';
 import 'package:ecommerceapp/bloc/choose/choose_cubit.dart';
@@ -8,6 +9,7 @@ import 'package:ecommerceapp/bloc/editaddress/edit_address_cubit.dart';
 import 'package:ecommerceapp/bloc/filter/filter_control_cubit.dart';
 import 'package:ecommerceapp/bloc/forgetpass/forget_pass_cubit.dart';
 import 'package:ecommerceapp/bloc/getAddresses/get_addresses_cubit.dart';
+import 'package:ecommerceapp/bloc/getCheckOuts/get_check_outs_cubit.dart';
 import 'package:ecommerceapp/bloc/getcartcontrol/get_cart_control_cubit.dart';
 import 'package:ecommerceapp/bloc/getcategoriesPr/get_categoreies_pr_cubit.dart';
 import 'package:ecommerceapp/bloc/gethomepagecat/get_home_page_cat_cubit.dart';
@@ -21,6 +23,7 @@ import 'package:ecommerceapp/bloc/signup/sign_up_cubit.dart';
 import 'package:ecommerceapp/bloc/thememode/theme_mode_cubit.dart';
 import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:ecommerceapp/screens/homepage.dart';
+import 'package:ecommerceapp/screens/themain4screens/page2.dart';
 import 'package:ecommerceapp/splash/splashscreen.dart';
 import 'package:ecommerceapp/test.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -80,6 +83,8 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => AddAddressCubit()),
             BlocProvider(create: (context) => EditAddressCubit()),
             BlocProvider(create: (context) => RemoveAllCubit()),
+            BlocProvider(create: (context) => AddCheckOutCubit()),
+            BlocProvider(create: (context) => GetCheckOutsCubit()),
           ],
           child: MaterialApp(
             theme: ThemeData(

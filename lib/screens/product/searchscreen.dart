@@ -2,6 +2,8 @@ import 'package:ecommerceapp/bloc/filter/filter_control_cubit.dart';
 import 'package:ecommerceapp/bloc/filtergender/filter_gender_control_cubit.dart';
 import 'package:ecommerceapp/firebase/firestore/FireBaseFireStore.dart';
 import 'package:ecommerceapp/getit/service_locator.dart';
+import 'package:ecommerceapp/getx/countcontrol.dart';
+import 'package:ecommerceapp/getx/finalratingcont.dart';
 import 'package:ecommerceapp/widgets/back.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/filterrow.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../data/product/productmodel.dart';
+import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -34,9 +37,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<List<ProductModel>> getData() async {
     List<ProductModel> list = await fireBaseFireStore.getData(query);
-    count = list.length;
     return list;
   }
+
+  final ratingController = Get.put(RatingController());
+  final countController = Get.put(CountControl());
 
   @override
   void initState() {
@@ -50,6 +55,14 @@ class _SearchScreenState extends State<SearchScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       focusNode.requestFocus();
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Get.delete<RatingController>();
+    Get.delete<CountControl>();
+    super.dispose();
   }
 
   @override
@@ -78,10 +91,12 @@ class _SearchScreenState extends State<SearchScreen> {
             Gap(24.h),
             FilterRow(),
             Gap(17.h),
-            CustomText(
-              text: "${count} Results Found",
-              weight: FontWeight.w500,
-              size: 12.sp,
+            Obx(
+              () => CustomText(
+                text: "${countController.count.value} Results Found",
+                weight: FontWeight.w500,
+                size: 12.sp,
+              ),
             ),
             Gap(16.h),
             Expanded(
@@ -137,6 +152,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                   default:
                                     break;
                                 }
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  timeStamp,
+                                ) {
+                                  if (mounted) {
+                                    countController.count.value = data.length;
+                                  }
+                                });
                                 return ProductsGrid(
                                   key: UniqueKey(),
                                   count: data.length,

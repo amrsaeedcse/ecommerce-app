@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/animation/fadeanimation.dart';
 import 'package:ecommerceapp/bloc/gethomepagecat/get_home_page_cat_cubit.dart';
 import 'package:ecommerceapp/data/product/productmodel.dart';
 import 'package:ecommerceapp/firebase/firestore/FireBaseFireStore.dart';
@@ -60,12 +61,14 @@ class _Page1State extends State<Page1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ClipOval(
-                  child: Image.network(
-                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    width: 40.w,
-                    height: 40.h,
-                    fit: BoxFit.cover,
+                FadeAnimation(
+                  w: ClipOval(
+                    child: Image.network(
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                      width: 40.w,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Container(

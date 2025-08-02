@@ -1,8 +1,10 @@
+import 'package:ecommerceapp/bloc/getCheckOuts/get_check_outs_cubit.dart';
 import 'package:ecommerceapp/widgets/CustomElevatedButton.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/gap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckedOutPage extends StatefulWidget {
@@ -61,7 +63,12 @@ class _CheckedOutPageState extends State<CheckedOutPage> {
                   ),
                   Spacer(),
                   CustomElevatedButton(
-                    fun: () {},
+                    fun: () {
+                      // TODO: implement back to orderPage
+
+                      Navigator.pop(context);
+                      context.read<GetCheckOutsCubit>().getCheckOuts();
+                    },
                     color: theme.primaryColor,
                     customText: CustomText(
                       text: "See Order details",

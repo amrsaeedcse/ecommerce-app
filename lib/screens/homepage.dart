@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/screens/themain4screens/page1.dart';
+import 'package:ecommerceapp/screens/themain4screens/page2.dart';
 import 'package:ecommerceapp/widgets/catogeriesscroll.dart';
 import 'package:ecommerceapp/widgets/customappbar.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
@@ -20,9 +21,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static int currIndex = 0;
-
-  List<Widget> screens = [Page1(), Placeholder(), Placeholder(), Placeholder()];
+  int currIndex = 0;
+  List<Widget> screens = [Page1(), Placeholder(), Page2(), Placeholder()];
 
   void setIndex(int index) {
     setState(() {

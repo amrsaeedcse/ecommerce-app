@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/data/address/addressmodel.dart';
 import 'package:ecommerceapp/data/cart/cartmodel.dart';
+import 'package:ecommerceapp/data/checkout/checkoutmodel.dart';
 import 'package:ecommerceapp/data/product/productmodel.dart';
 import 'package:ecommerceapp/data/rating/ratingmodel.dart';
 import 'package:ecommerceapp/firebase/fireauth/firebaseauth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 class FireBaseFireStore {
   final fireBaseFireStore = FirebaseFirestore.instance;
@@ -315,6 +319,78 @@ class FireBaseFireStore {
         .get();
     for (DocumentSnapshot<Map<String, dynamic>> doc in querySnapshot.docs) {
       await doc.reference.delete();
+    }
+  }
+
+  Future<void> addCheckOutWithProducts(CheckOutModel checkOutModel) async {
+    checkOutModel.progress = "Processing";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference checkOutRef = await fireBaseFireStore
+        .collection("checkOuts")
+        .doc(userId)
+        .collection("userCheckOuts")
+        .add(checkOutModel.toJson());
+    await checkOutRef.update({"orderId": checkOutRef.id});
+    for (var cartModel in checkOutModel.cartModels) {
+      await checkOutRef.collection("carts").add(cartModel.toJSon());
+    }
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': "service_c1giws2",
+        'template_id': "template_d8qqlu5",
+        'user_id': "03Eq50fwVTJw_DFiJ",
+        'template_params': {
+          "order_id": checkOutModel.orderId,
+          "email": FirebaseAuth.instance.currentUser!.email,
+          "orders": checkOutModel.cartModels.map((e) {
+            return {
+              "name": e.name,
+              "units": e.quantity,
+              "price": e.price,
+              "image_url": e.imageUrl,
+            };
+          }).toList(),
+          "cost": {"shipping": 8, "tax": 0, "total": checkOutModel.price},
+        },
+      }),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+    } else {
+      throw Exception("erorr");
+    }
+    //
+  }
+
+  Future<List<CheckOutModel>> getOrders() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await fireBaseFireStore
+        .collection("checkOuts")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("userCheckOuts")
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
+      List<CheckOutModel> checkOutModels = [];
+      for (var doc in querySnapshot.docs) {
+        CheckOutModel checkOutModel = CheckOutModel.fromJson(doc.data());
+
+        QuerySnapshot<Map<String, dynamic>> querySnapshot = await doc.reference
+            .collection("carts")
+            .get();
+        List<CartModel> cartModels = querySnapshot.docs.map((e) {
+          return CartModel.fromJson(e.data());
+        }).toList();
+        checkOutModel.cartModels = List<CartModel>.from(cartModels);
+        checkOutModels.add(checkOutModel);
+      }
+      return checkOutModels;
+    } else {
+      throw Exception("empty");
     }
   }
 }

@@ -55,7 +55,9 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    Get.delete<RatingController>();
+    if (!Get.isRegistered<RatingController>()) {
+      Get.delete<RatingController>();
+    }
     super.dispose();
   }
 

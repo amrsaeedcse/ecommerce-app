@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/animation/fadeanimation.dart';
 import 'package:ecommerceapp/data/product/productmodel.dart';
 import 'package:ecommerceapp/screens/product/productpage.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
@@ -53,13 +54,15 @@ class ProductList extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: onTpaImage,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    child: Image.network(
-                                      data[index].imageUrl,
-                                      width: 159.w,
-                                      height: 220.h,
-                                      fit: BoxFit.fill,
+                                  child: FadeAnimation(
+                                    w: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      child: Image.network(
+                                        data[index].imageUrl,
+                                        width: 159.w,
+                                        height: 220.h,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
                                 ),

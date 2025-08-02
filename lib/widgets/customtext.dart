@@ -16,6 +16,7 @@ class CustomText extends StatelessWidget {
   final double size;
   final Color? color;
   final bool? lined;
+  // final int? numberOfLines;
 
   @override
   Widget build(BuildContext context) {

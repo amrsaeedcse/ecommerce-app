@@ -27,4 +27,19 @@ class ProductModel extends ProductEntity {
       oldPrice: json['oldPrice'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'imageUrl': imageUrl,
+      'price': price,
+      'oldPrice': oldPrice,
+      'isPriceChanged': isPriceChanged,
+      'isNew': isNew,
+      'isTopSelling': isTopSelling,
+      'category': category,
+      'gender': gender,
+    };
+  }
 }

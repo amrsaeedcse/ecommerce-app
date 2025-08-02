@@ -47,6 +47,8 @@ dependencies:
   shimmer: ^3.0.0
   color_parser: ^0.0.3
   get: ^4.7.2
+  flutter_staggered_animations: ^1.1.1
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_test:
