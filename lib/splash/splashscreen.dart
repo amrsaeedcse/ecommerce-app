@@ -39,9 +39,12 @@ class _SplashScreenState extends State<SplashScreen>
       );
       await Future.delayed(opacityDuration);
       await Future.delayed(Duration(milliseconds: 300));
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (context) => SignIn()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          settings: RouteSettings(name: 'first'),
+          builder: (context) => SignIn(),
+        ),
+      );
     });
   }
 

@@ -3,7 +3,8 @@ class ProductEntity {
   final double price;
   final double? oldPrice;
   final bool isPriceChanged, isNew, isTopSelling;
-
+  //additional attr
+  bool isFav = false;
   ProductEntity({
     required this.id,
     required this.name,

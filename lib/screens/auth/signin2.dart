@@ -62,9 +62,13 @@ class SignIn2 extends StatelessWidget {
                   } else if (state is SignInSuccess) {
                     Navigator.pop(context);
                     SnackBarWarning.showSnack("Welcome", context);
-                    Navigator.of(
+                    Navigator.push(
                       context,
-                    ).push(MaterialPageRoute(builder: (context) => HomePage()));
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                        settings: RouteSettings(name: 'home'),
+                      ),
+                    );
                   }
                 },
                 builder: (context, state) {

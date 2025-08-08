@@ -7,6 +7,7 @@ class RatingModel extends RatingEntity {
     required super.userName,
     required super.rating,
     required super.comment,
+    super.userImage,
   });
 
   factory RatingModel.fromJsom(Map<String, dynamic> json) {

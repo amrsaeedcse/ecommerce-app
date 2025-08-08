@@ -14,6 +14,7 @@ class SignInCubit extends Cubit<SignInState> {
     emit(SignInLoading());
 
     try {
+      emit(SignInLoading());
       await firebaseAuth.signIn(email: email, pass: password);
       emit(SignInSuccess());
     } on FirebaseAuthException catch (e) {

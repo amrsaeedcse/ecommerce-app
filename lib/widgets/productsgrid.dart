@@ -71,15 +71,15 @@ class _ProductsGridState extends State<ProductsGrid>
                                 ),
                               ),
 
-                              Positioned(
-                                right: 8.w,
-                                top: 5.h,
-                                child: GestureDetector(
-                                  child: SvgPicture.asset(
-                                    "assets/images/icons/heart.svg",
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   right: 8.w,
+                              //   top: 5.h,
+                              //   child: GestureDetector(
+                              //     child: SvgPicture.asset(
+                              //       "assets/images/icons/heart.svg",
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           Gap(8.h),

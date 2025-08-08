@@ -26,4 +26,8 @@ class GetAddressesCubit extends Cubit<GetAddressesState> {
       }
     }
   }
+
+  void ref() {
+    emit(GetAddressesSuccess((state as GetAddressesSuccess).addressModels));
+  }
 }

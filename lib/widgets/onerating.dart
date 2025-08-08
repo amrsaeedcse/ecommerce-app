@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/data/rating/ratingmodel.dart';
 import 'package:ecommerceapp/widgets/stars.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,20 +31,31 @@ class OneRating extends StatelessWidget {
       children: [
         Row(
           children: [
-            ClipOval(
-              child: Image.network(
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                width: 40.w,
-                height: 40.h,
-                fit: BoxFit.cover,
-              ),
-            ),
+            rating.userImage == null
+                ? ClipOval(
+                    child: Image.network(
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                      width: 40.w,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : ClipOval(
+                    child: Image.memory(
+                      rating.userImage!,
+                      width: 40.w,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
             SizedBox(width: 12.w),
             Container(
               width: 130.w,
               alignment: Alignment.centerLeft,
               child: CustomText(
-                text: rating.userName,
+                text: rating.userId == FirebaseAuth.instance.currentUser!.uid
+                    ? "me"
+                    : rating.userName,
                 weight: FontWeight.w700,
                 size: 12.sp,
               ),

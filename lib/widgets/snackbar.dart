@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SnackBarWarning {
   static showSnack(String message, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).primaryColor,
         content: Center(
@@ -16,6 +16,7 @@ class SnackBarWarning {
             color: Theme.of(context).colorScheme.surface,
           ),
         ),
+        duration: Duration(milliseconds: 500),
       ),
     );
   }

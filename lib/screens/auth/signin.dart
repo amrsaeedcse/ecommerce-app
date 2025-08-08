@@ -132,9 +132,13 @@ class _SignInState extends State<SignIn> {
                     );
                   } else if (state is SignInwithGoogleSuccess) {
                     Navigator.pop(context);
-                    Navigator.of(
+                    Navigator.push(
                       context,
-                    ).push(MaterialPageRoute(builder: (context) => HomePage()));
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                        settings: RouteSettings(name: 'home'),
+                      ),
+                    );
                   }
                 },
                 builder: (context, state) {

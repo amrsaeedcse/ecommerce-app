@@ -8,6 +8,8 @@ class FireBaseAuth {
   final fireBaseAuth = FirebaseAuth.instance;
   final googleSignIn = GoogleSignIn.instance;
 
+  late final UserModel userModel;
+
   Future signUp({
     required String email,
     required String pass,
@@ -27,14 +29,13 @@ class FireBaseAuth {
             "age": age,
             "sex": sex,
           }, SetOptions(merge: true));
-
       UserModel userModel = UserModel(
         email: email,
         name: name,
         age: age,
         sex: sex,
-        userCredential: userCredential,
       );
+      userModel = userModel;
       return userModel;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -94,6 +95,11 @@ class FireBaseAuth {
         throw "error";
       }
     }
+  }
+
+  Future signOut() async {
+    await fireBaseAuth.signOut();
+    await googleSignIn.signOut();
   }
 }
 

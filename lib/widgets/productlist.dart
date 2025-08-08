@@ -3,6 +3,7 @@ import 'package:ecommerceapp/data/product/productmodel.dart';
 import 'package:ecommerceapp/screens/product/productpage.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/gap.dart';
+import 'package:ecommerceapp/widgets/heartfav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,6 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 282.h,
-
       child: data.isNotEmpty
           ? ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -70,12 +70,7 @@ class ProductList extends StatelessWidget {
                                 Positioned(
                                   right: 8.w,
                                   top: 5.h,
-                                  child: GestureDetector(
-                                    onTap: onTpaLike,
-                                    child: SvgPicture.asset(
-                                      "assets/images/icons/heart.svg",
-                                    ),
-                                  ),
+                                  child: HeartFav(productModel: data[index]),
                                 ),
                               ],
                             ),

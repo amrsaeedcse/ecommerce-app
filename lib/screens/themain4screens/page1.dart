@@ -6,6 +6,7 @@ import 'package:ecommerceapp/getit/service_locator.dart';
 import 'package:ecommerceapp/screens/cart/cartpage.dart';
 import 'package:ecommerceapp/screens/catogeries/catogeriespage.dart';
 import 'package:ecommerceapp/screens/product/searchscreen.dart';
+import 'package:ecommerceapp/widgets/profilephoto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,16 +62,7 @@ class _Page1State extends State<Page1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FadeAnimation(
-                  w: ClipOval(
-                    child: Image.network(
-                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                      width: 40.w,
-                      height: 40.h,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                FadeAnimation(w: ProfilePhoto(l: 40, editable: false)),
                 Container(
                   decoration: BoxDecoration(
                     color: theme.colorScheme.onPrimary,

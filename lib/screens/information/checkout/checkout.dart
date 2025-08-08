@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/bloc/addcheckout/add_check_out_cubit.dart';
+import 'package:ecommerceapp/bloc/getNotifications/get_notifications_cubit.dart';
 import 'package:ecommerceapp/bloc/getcartcontrol/get_cart_control_cubit.dart';
 import 'package:ecommerceapp/bloc/removeall/remove_all_cubit.dart';
 import 'package:ecommerceapp/data/checkout/checkoutmodel.dart';
+import 'package:ecommerceapp/data/notifications/notificationsmodel.dart';
 import 'package:ecommerceapp/getx/addresscontrol.dart';
 import 'package:ecommerceapp/widgets/CustomElevatedButton.dart';
 import 'package:ecommerceapp/widgets/back.dart';
@@ -131,7 +133,7 @@ class _CheckOutState extends State<CheckOut> {
               Expanded(child: Center()),
               SizedBox(
                 child: CustomElevatedButton(
-                  fun: () {
+                  fun: () async {
                     if (addressController.addressModel.value == null) {
                       SnackBarWarning.showSnack(
                         "Please Choose address first",
@@ -141,7 +143,7 @@ class _CheckOutState extends State<CheckOut> {
                       String address =
                           '${addressController.addressModel.value!.street}, ${addressController.addressModel.value!.city}, ${addressController.addressModel.value!.state} ${addressController.addressModel.value!.zipCode}';
 
-                      context.read<AddCheckOutCubit>().addCheckOut(
+                      await context.read<AddCheckOutCubit>().addCheckOut(
                         CheckOutModel(
                           progress: "--",
                           orderId: "--",
@@ -158,7 +160,12 @@ class _CheckOutState extends State<CheckOut> {
                                   ? priceController.disCost.value
                                   : 0),
                         ),
+                        NotificationsModel(
+                          time: Timestamp.now(),
+                          message: "--",
+                        ),
                       );
+                      context.read<GetNotificationsCubit>().getNotifications();
                     }
                   },
                   color: theme.primaryColor,

@@ -5,6 +5,10 @@ class ProductChooseSizeCubit extends Cubit<ProductSize> {
   void putSize(ProductSize size) {
     emit(size);
   }
+
+  void reset() {
+    emit(ProductSize.S);
+  }
 }
 
 enum ProductSize { S, M, Xl, Xl2 }

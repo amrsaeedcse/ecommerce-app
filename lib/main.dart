@@ -2,23 +2,34 @@ import 'package:ecommerceapp/bloc/addDataWithGoogle/store_google_cubit.dart';
 import 'package:ecommerceapp/bloc/addaddress/add_address_cubit.dart';
 import 'package:ecommerceapp/bloc/addcartcontrol/add_cart_control_cubit.dart';
 import 'package:ecommerceapp/bloc/addcheckout/add_check_out_cubit.dart';
+import 'package:ecommerceapp/bloc/addnotification/add_notification_cubit.dart';
+import 'package:ecommerceapp/bloc/addprofileimage/add_profile_image_cubit.dart';
 import 'package:ecommerceapp/bloc/addrating/add_rating_cubit.dart';
 import 'package:ecommerceapp/bloc/age/age_control_cubit.dart';
 import 'package:ecommerceapp/bloc/choose/choose_cubit.dart';
 import 'package:ecommerceapp/bloc/editaddress/edit_address_cubit.dart';
+import 'package:ecommerceapp/bloc/editpofile/edit_profile_cubit.dart';
 import 'package:ecommerceapp/bloc/filter/filter_control_cubit.dart';
 import 'package:ecommerceapp/bloc/forgetpass/forget_pass_cubit.dart';
 import 'package:ecommerceapp/bloc/getAddresses/get_addresses_cubit.dart';
 import 'package:ecommerceapp/bloc/getCheckOuts/get_check_outs_cubit.dart';
+import 'package:ecommerceapp/bloc/getNotifications/get_notifications_cubit.dart';
 import 'package:ecommerceapp/bloc/getcartcontrol/get_cart_control_cubit.dart';
 import 'package:ecommerceapp/bloc/getcategoriesPr/get_categoreies_pr_cubit.dart';
 import 'package:ecommerceapp/bloc/gethomepagecat/get_home_page_cat_cubit.dart';
+import 'package:ecommerceapp/bloc/getprofileimage/get_profile_image_cubit.dart';
+import 'package:ecommerceapp/bloc/getproile/get_profile_cubit.dart';
 import 'package:ecommerceapp/bloc/getratings/get_ratings_cubit.dart';
+import 'package:ecommerceapp/bloc/getwishlist/get_wish_list_cubit.dart';
 import 'package:ecommerceapp/bloc/google/sign_inwith_google_cubit.dart';
+import 'package:ecommerceapp/bloc/navbartcontrol/nav_bar_control_cubit.dart';
 import 'package:ecommerceapp/bloc/productchoose/product_choose_color_cubit.dart';
 import 'package:ecommerceapp/bloc/productchoose/product_choose_cubit.dart';
 import 'package:ecommerceapp/bloc/quantitnycontrol/quantity_control_cubit.dart';
 import 'package:ecommerceapp/bloc/removeall/remove_all_cubit.dart';
+import 'package:ecommerceapp/bloc/resetbloc/reset_pr_inwish_grid_cubit.dart';
+import 'package:ecommerceapp/bloc/sendsupport/send_support_cubit.dart';
+import 'package:ecommerceapp/bloc/signout/sign_out_cubit.dart';
 import 'package:ecommerceapp/bloc/signup/sign_up_cubit.dart';
 import 'package:ecommerceapp/bloc/thememode/theme_mode_cubit.dart';
 import 'package:ecommerceapp/getit/service_locator.dart';
@@ -85,6 +96,17 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => RemoveAllCubit()),
             BlocProvider(create: (context) => AddCheckOutCubit()),
             BlocProvider(create: (context) => GetCheckOutsCubit()),
+            BlocProvider(create: (context) => GetWishListCubit()),
+            BlocProvider(create: (context) => ResetPrInwishGridCubit()),
+            BlocProvider(create: (context) => GetProfileCubit()),
+            BlocProvider(create: (context) => EditProfileCubit()),
+            BlocProvider(create: (context) => AddNotificationCubit()),
+            BlocProvider(create: (context) => GetNotificationsCubit()),
+            BlocProvider(create: (context) => SendSupportCubit()),
+            BlocProvider(create: (context) => AddProfileImageCubit()),
+            BlocProvider(create: (context) => GetProfileImageCubit()),
+            BlocProvider(create: (context) => SignOutCubit()),
+            BlocProvider(create: (context) => NavBarControlCubit()),
           ],
           child: MaterialApp(
             theme: ThemeData(

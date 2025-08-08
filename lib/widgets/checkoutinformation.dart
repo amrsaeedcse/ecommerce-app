@@ -30,7 +30,9 @@ class AddCheckOutInformation extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddressPage()),
+                  MaterialPageRoute(
+                    builder: (context) => AddressPage(use: true),
+                  ),
                 );
               },
             ),

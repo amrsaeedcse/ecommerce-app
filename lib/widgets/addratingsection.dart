@@ -53,8 +53,7 @@ class AddRatingSection extends StatelessWidget {
                         RatingModel ratingModel = RatingModel(
                           time: Timestamp.now(),
                           userId: FirebaseAuth.instance.currentUser!.uid,
-                          userName:
-                              FirebaseAuth.instance.currentUser!.displayName!,
+                          userName: "--",
                           rating: ratingCont.numberOfStar.value,
                           comment: tCont.text,
                         );

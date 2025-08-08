@@ -110,6 +110,12 @@ class _RatingSectionState extends State<RatingSection> {
           child: BlocBuilder<GetRatingsCubit, GetRatingsState>(
             builder: (context, state) {
               if (state is GetRatingsLoading) {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  if (mounted) {
+                    ratingController1.setNumber(0);
+                    ratingController1.setRating(0);
+                  }
+                });
                 return Center(child: CupertinoActivityIndicator());
               } else if (state is GetRatingsFailure) {
                 return Center(
@@ -155,7 +161,6 @@ class _RatingSectionState extends State<RatingSection> {
                   ratingController1.setRating(getFinalRating(data));
                 }
               });
-              print(data[0].comment);
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

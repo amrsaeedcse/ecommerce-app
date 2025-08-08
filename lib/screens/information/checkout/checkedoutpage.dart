@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/bloc/getCheckOuts/get_check_outs_cubit.dart';
+import 'package:ecommerceapp/bloc/navbartcontrol/nav_bar_control_cubit.dart';
 import 'package:ecommerceapp/widgets/CustomElevatedButton.dart';
 import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/gap.dart';
@@ -64,9 +65,8 @@ class _CheckedOutPageState extends State<CheckedOutPage> {
                   Spacer(),
                   CustomElevatedButton(
                     fun: () {
-                      // TODO: implement back to orderPage
-
-                      Navigator.pop(context);
+                      context.read<NavBarControlCubit>().changeIndex(2);
+                      Navigator.popUntil(context, ModalRoute.withName('home'));
                       context.read<GetCheckOutsCubit>().getCheckOuts();
                     },
                     color: theme.primaryColor,

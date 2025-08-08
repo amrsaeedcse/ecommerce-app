@@ -9,4 +9,8 @@ class ProductChooseColorCubit extends Cubit<Color> {
   void putColor(Color color) {
     emit(color);
   }
+
+  void reset() {
+    emit(Colors.red);
+  }
 }

@@ -1,31 +1,34 @@
-import 'package:ecommerceapp/animation/slidefadeanimation.dart';
-import 'package:ecommerceapp/bloc/getAddresses/get_addresses_cubit.dart';
-import 'package:ecommerceapp/getx/addresscontrol.dart';
-import 'package:ecommerceapp/screens/information/address/addaddress.dart';
-import 'package:ecommerceapp/screens/information/address/editaddresspage.dart';
-import 'package:ecommerceapp/widgets/customtext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../widgets/back.dart';
-import '../../../widgets/gap.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../bloc/getAddresses/get_addresses_cubit.dart';
+import '../../../widgets/customtext.dart';
+import '../../../widgets/back.dart';
+import '../../../widgets/gap.dart';
+import '../../../screens/information/address/addaddress.dart';
+import '../../../getx/addresscontrol.dart';
+import '../../../data/address/addressmodel.dart';
+import 'addresslist.dart';
+
 class AddressPage extends StatefulWidget {
-  const AddressPage({super.key});
+  const AddressPage({super.key, required this.use});
+  final bool use;
 
   @override
   State<AddressPage> createState() => _AddressPageState();
 }
 
 class _AddressPageState extends State<AddressPage> {
-  final addressController = Get.find<AddressControl>();
+  late final addressController;
 
   @override
   void initState() {
-    // TODO: implement initState
+    if (widget.use) {
+      addressController = Get.find<AddressControl>();
+    }
     context.read<GetAddressesCubit>().getAddresses();
     super.initState();
   }
@@ -79,6 +82,7 @@ class _AddressPageState extends State<AddressPage> {
               ),
             );
           }
+
           final data = (state as GetAddressesSuccess).addressModels;
           return Padding(
             padding: EdgeInsets.only(right: 24.0.w, left: 24.w, bottom: 34.h),
@@ -115,67 +119,10 @@ class _AddressPageState extends State<AddressPage> {
                 ),
                 Gap(32.h),
                 Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return SlideFadeAnimation(
-                        widget: Material(
-                          color: Theme.of(context).colorScheme.onPrimary,
-
-                          borderRadius: BorderRadius.circular(8.r),
-                          child: InkWell(
-                            onTap: () {
-                              addressController.addressModel.value =
-                                  data[index];
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              height: 72.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 248.w,
-                                    child: CustomText(
-                                      text:
-                                          '${data[index].street}, ${data[index].city}, ${data[index].state} ${data[index].zipCode}',
-                                      weight: FontWeight.w700,
-                                      size: 16,
-                                    ),
-                                  ),
-
-                                  MaterialButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => EditAddressPage(
-                                            addressModel: data[index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: CustomText(
-                                      text: "Edit",
-                                      weight: FontWeight.w700,
-                                      size: 12,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 12.h),
-                    itemCount: data.length,
+                  child: AddressListView(
+                    data: data,
+                    use: widget.use,
+                    addressController: widget.use ? addressController : null,
                   ),
                 ),
               ],

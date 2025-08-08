@@ -1,6 +1,9 @@
 import 'package:ecommerceapp/bloc/addcartcontrol/add_cart_control_cubit.dart';
+import 'package:ecommerceapp/bloc/gethomepagecat/get_home_page_cat_cubit.dart';
 import 'package:ecommerceapp/bloc/productchoose/product_choose_color_cubit.dart';
 import 'package:ecommerceapp/bloc/productchoose/product_choose_cubit.dart';
+import 'package:ecommerceapp/bloc/quantitnycontrol/quantity_control_cubit.dart';
+import 'package:ecommerceapp/bloc/resetbloc/reset_pr_inwish_grid_cubit.dart';
 import 'package:ecommerceapp/data/cart/cartmodel.dart';
 import 'package:ecommerceapp/data/product/productmodel.dart';
 import 'package:ecommerceapp/screens/cart/cartpage.dart';
@@ -9,6 +12,7 @@ import 'package:ecommerceapp/widgets/customtext.dart';
 import 'package:ecommerceapp/widgets/filterchoice.dart';
 import 'package:ecommerceapp/widgets/gap.dart';
 import 'package:ecommerceapp/widgets/heart.dart';
+import 'package:ecommerceapp/widgets/heartfav.dart';
 import 'package:ecommerceapp/widgets/productoption.dart';
 import 'package:ecommerceapp/widgets/quantitycontrol.dart';
 import 'package:ecommerceapp/widgets/ratingsection.dart';
@@ -19,12 +23,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../firebase/firestore/FireBaseFireStore.dart';
+import '../../getit/service_locator.dart';
 import '../../getx/finalratingcont.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key, required this.productModel});
+  ProductPage({super.key, required this.productModel});
 
-  final ProductModel productModel;
+  ProductModel productModel;
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -49,6 +55,10 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     // TODO: implement initState
     // print(widget.productModel.id);
+    checkIt();
+    context.read<QuantityControlCubit>().reset();
+    context.read<ProductChooseColorCubit>().reset();
+    context.read<ProductChooseSizeCubit>().reset();
     super.initState();
   }
 
@@ -58,7 +68,27 @@ class _ProductPageState extends State<ProductPage> {
     if (!Get.isRegistered<RatingController>()) {
       Get.delete<RatingController>();
     }
+
     super.dispose();
+  }
+
+  //that method check where you come from to update every built place for this prodcuts
+  void checkIt() {
+    final FireBaseFireStore fireBase = getIt<FireBaseFireStore>();
+
+    if (fireBase.someProducts.contains(widget.productModel)) {
+      print("here");
+      return; //that means u send it directly
+    }
+    int elementIndex = -1;
+    for (int i = 0; i < fireBase.someProducts.length; i++) {
+      if (fireBase.someProducts[i].id == widget.productModel.id) {
+        elementIndex = i;
+      }
+    }
+    if (elementIndex != -1) {
+      widget.productModel = fireBase.someProducts[elementIndex];
+    }
   }
 
   final controller = Get.put(RatingController());
@@ -141,7 +171,23 @@ class _ProductPageState extends State<ProductPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Back(),
-                  Heart(productModel: widget.productModel),
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.onPrimary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: HeartFav(
+                        productModel: widget.productModel,
+                        additionalTap: () {
+                          context.read<GetHomePageCatCubit>().reset();
+                          context.read<ResetPrInwishGridCubit>().reset();
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Gap(24.h),

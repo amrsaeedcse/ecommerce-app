@@ -256,9 +256,13 @@ class _TellUsState extends State<TellUs> {
               SnackBarWarning.showSnack("error", context);
             } else if (state is StoreGoogleSuccess) {
               Navigator.pop(context);
-              Navigator.of(
+              Navigator.push(
                 context,
-              ).push(MaterialPageRoute(builder: (context) => HomePage()));
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                  settings: RouteSettings(name: 'home'),
+                ),
+              );
             } else if (state is StoreGoogleLoading) {
               Loading.showAlertLoading(context);
             }
